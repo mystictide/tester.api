@@ -1,10 +1,23 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
+using tester.api.Infrastructure.Models.Main;
 
 namespace tester.api.Helpers
 {
     public class CustomHelpers
     {
+        public static List<CountryReturn> ReturnCountries(List<Flags> flags)
+        {
+            List<CountryReturn> countries = new List<CountryReturn>();
+            foreach (var item in flags)
+            {
+                var country = new CountryReturn();
+                country.Name = item.Country;
+                countries.Add(country);
+            }
+            return countries;
+        }
+
         public static Bitmap Base64ToBitmap(string data)
         {
             try

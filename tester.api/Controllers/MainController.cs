@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using tester.api.Helpers;
+using Microsoft.AspNetCore.Mvc;
 using tester.api.Infrastructure.Managers.Main;
 
 namespace tester.api.Controllers
@@ -8,13 +9,29 @@ namespace tester.api.Controllers
     public class MainController : ControllerBase
     {
         [HttpGet]
-        [Route("get/profile")]
-        public async Task<IActionResult> GetProfile([FromQuery] string username)
+        [Route("get/flag")]
+        public async Task<IActionResult> GetRandomFlag([FromQuery] int? difficulty)
         {
             try
             {
-                //var result = await new MainManager().GetProfile(username);
-                return Ok("");
+                var result = await new MainManager().GetRandomFlag(difficulty);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("get/countries")]
+        public async Task<IActionResult> GetCountries()
+        {
+            try
+            {
+                var result = await new MainManager().GetCountries();
+                var countries = CustomHelpers.ReturnCountries(result);
+                return Ok(countries);
             }
             catch (Exception ex)
             {
