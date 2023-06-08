@@ -10,11 +10,11 @@ namespace tester.api.Controllers
     {
         [HttpGet]
         [Route("get/flag")]
-        public async Task<IActionResult> GetRandomFlag([FromQuery] int? difficulty)
+        public async Task<IActionResult> GetFlaggerRound([FromQuery] int? round, [FromQuery] int? difficulty, [FromQuery] string? prevFlag)
         {
             try
             {
-                var result = await new MainManager().GetRandomFlag(difficulty);
+                var result = await new MainManager().GetFlaggerRound(round, difficulty, prevFlag);
                 return Ok(result);
             }
             catch (Exception ex)

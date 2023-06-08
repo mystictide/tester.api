@@ -1,4 +1,5 @@
 ﻿using tester.api.Infrastructure.Models.Main;
+using tester.api.Infrastructure.Models.Tests;
 using tester.api.Infrastructure.Data.Repo.Main;
 using tester.api.Infrastructure.Models.Helpers;
 using tester.api.Infrastructure.Data.Interface.Main;
@@ -16,6 +17,11 @@ namespace tester.api.Infrastructure.Managers.Main
         public async Task<List<Flags>> GetCountries()
         {
             return await _repo.GetCountries();
+        }
+
+        public async Task<Flagger> GetFlaggerRound(int? round, int? difficulty, string? prevFlag)
+        {
+            return await _repo.GetFlaggerRound(round, difficulty, prevFlag);
         }
 
         public async Task<Flags> GetRandomFlag(int? difficulty)
