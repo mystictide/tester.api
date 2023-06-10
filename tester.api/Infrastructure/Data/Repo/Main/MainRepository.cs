@@ -48,7 +48,7 @@ namespace tester.api.Infrastructure.Data.Repo.Main
         {
             try
             {
-                string query = $@"select * from flags f where f.difficulty <= {difficulty} and f.country NOT LIKE '%{prevFlag ?? " "}%' order by RANDOM() LIMIT 4;";
+                string query = $@"select * from flags f where f.difficulty <= {difficulty} and f.country NOT LIKE ALL(ARRAY[{prevFlag ?? "' '"}]) order by RANDOM() LIMIT 4;";
                 using (var connection = GetConnection)
                 {
                     var res = await connection.QueryAsync<Flags>(query);
