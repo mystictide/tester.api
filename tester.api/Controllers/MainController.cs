@@ -1,5 +1,4 @@
-﻿using tester.api.Helpers;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using tester.api.Infrastructure.Managers.Main;
 
 namespace tester.api.Controllers
@@ -24,14 +23,13 @@ namespace tester.api.Controllers
         }
 
         [HttpGet]
-        [Route("get/countries")]
-        public async Task<IActionResult> GetCountries()
+        [Route("get/language")]
+        public async Task<IActionResult> GetLanggerRound([FromQuery] int? round, [FromQuery] int? difficulty, [FromQuery] string? prevLang)
         {
             try
             {
-                var result = await new MainManager().GetCountries();
-                var countries = CustomHelpers.ReturnCountries(result);
-                return Ok(countries);
+                var result = await new MainManager().GetFlaggerRound(round, difficulty, prevLang);
+                return Ok(result);
             }
             catch (Exception ex)
             {

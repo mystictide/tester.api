@@ -22,5 +22,20 @@ namespace tester.api.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("manage/language")]
+        public async Task<IActionResult> ManageLanguage([FromBody] Languages entity)
+        {
+            try
+            {
+                var result = await new CMSManager().ManageLanguage(entity);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

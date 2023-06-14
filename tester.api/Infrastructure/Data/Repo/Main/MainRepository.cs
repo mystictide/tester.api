@@ -8,42 +8,6 @@ namespace tester.api.Infrastructure.Data.Repo.Main
 {
     public class MainRepository : AppSettings, IMain
     {
-        public async Task<Flags> GetRandomFlag(int? difficulty)
-        {
-            try
-            {
-                string query = $@"select * from flags f where f.difficulty = {difficulty} order by RANDOM() LIMIT 1;";
-
-                using (var connection = GetConnection)
-                {
-                    var res = await connection.QueryFirstOrDefaultAsync<Flags>(query);
-                    return res;
-                }
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-
-        public async Task<List<Flags>> GetCountries()
-        {
-            try
-            {
-                string query = $@"Select f.country from flags f;";
-
-                using (var connection = GetConnection)
-                {
-                    var res = await connection.QueryAsync<Flags>(query);
-                    return res.ToList();
-                }
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-
         public async Task<Flagger> GetFlaggerRound(int? round, int? difficulty, string? prevFlag)
         {
             try
@@ -61,7 +25,30 @@ namespace tester.api.Infrastructure.Data.Repo.Main
                     return newRound;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task<Langger> GetLanggerRound(int? round, int? difficulty, string? prevLang)
+        {
+            try
+            {
+                string query = $@"select * from languages f where f.difficulty <= {difficulty} and f.language NOT LIKE ALL(ARRAY[{prevLang ?? "' '"}]) order by RANDOM() LIMIT 4;";
+                using (var connection = GetConnection)
+                {
+                    var res = await connection.QueryAsync<Languages>(query);
+                    var newRound = new Langger();
+                    newRound.Round += round.HasValue ? round.Value : 1;
+                    newRound.Languages = res.ToList();
+                    var random = new Random();
+                    int index = random.Next(res.ToList().Count);
+                    newRound.Correct = res.ToList()[index];
+                    return newRound;
+                }
+            }
+            catch (Exception)
             {
                 return null;
             }

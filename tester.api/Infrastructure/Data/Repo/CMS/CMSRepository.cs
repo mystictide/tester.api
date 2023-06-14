@@ -42,5 +42,41 @@ namespace tester.api.Infrastructure.Data.Repo.Main
                 return null;
             }
         }
+
+        public async Task<Languages> ManageLanguage(Languages entity)
+        {
+            try
+            {
+                dynamic identity = entity.ID.HasValue ? entity.ID.Value : "default";
+
+                if (entity.Language.Contains("'"))
+                {
+                    entity.Language = entity.Language.Replace("'", "''");
+                }
+
+                string query = $@"
+                INSERT INTO languages (id, language, difficulty, url)
+	 	                VALUES (
+                {identity}, '{entity.Language}', '{entity.Difficulty}', '{entity.URL}')
+                ON CONFLICT (id) DO UPDATE 
+                SET language = '
+                {entity.Language}',
+                       difficulty = '
+                {entity.Difficulty}',
+                       url = '
+                {entity.URL}'
+                RETURNING *;";
+
+                using (var connection = GetConnection)
+                {
+                    var res = await connection.QueryFirstOrDefaultAsync<Languages>(query);
+                    return res;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

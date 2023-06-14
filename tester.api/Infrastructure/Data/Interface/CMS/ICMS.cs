@@ -5,5 +5,6 @@ namespace tester.api.Infrastructure.Data.Interface.CMS
     public interface ICMS
     {
         Task<Flags> ManageFlag(Flags entity);
+        Task<Languages> ManageLanguage(Languages entity);
     }
 }

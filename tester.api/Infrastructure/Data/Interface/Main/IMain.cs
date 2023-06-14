@@ -5,8 +5,7 @@ namespace tester.api.Infrastructure.Data.Interface.Main
 {
     public interface IMain
     {
-        Task<Flags> GetRandomFlag(int? difficulty);
         Task<Flagger> GetFlaggerRound(int? round, int? difficulty, string? prevFlag);
-        Task<List<Flags>> GetCountries();
+        Task<Langger> GetLanggerRound(int? round, int? difficulty, string? prevLang);
     }
 }

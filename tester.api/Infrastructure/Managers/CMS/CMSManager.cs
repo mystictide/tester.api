@@ -17,5 +17,10 @@ namespace tester.api.Infrastructure.Managers.CMS
         {
             return await _repo.ManageFlag(entity);
         }
+
+        public async Task<Languages> ManageLanguage(Languages entity)
+        {
+            return await _repo.ManageLanguage(entity);
+        }
     }
 }

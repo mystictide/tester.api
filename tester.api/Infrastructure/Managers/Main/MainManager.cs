@@ -14,19 +14,14 @@ namespace tester.api.Infrastructure.Managers.Main
             _repo = new MainRepository();
         }
 
-        public async Task<List<Flags>> GetCountries()
-        {
-            return await _repo.GetCountries();
-        }
-
         public async Task<Flagger> GetFlaggerRound(int? round, int? difficulty, string? prevFlag)
         {
             return await _repo.GetFlaggerRound(round, difficulty, prevFlag);
         }
 
-        public async Task<Flags> GetRandomFlag(int? difficulty)
+        public async Task<Langger> GetLanggerRound(int? round, int? difficulty, string? prevLang)
         {
-            return await _repo.GetRandomFlag(difficulty);
+            return await _repo.GetLanggerRound(round, difficulty, prevLang);
         }
     }
 }
