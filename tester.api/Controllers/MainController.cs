@@ -28,7 +28,7 @@ namespace tester.api.Controllers
         {
             try
             {
-                var result = await new MainManager().GetFlaggerRound(round, difficulty, prevLang);
+                var result = await new MainManager().GetLanggerRound(round, difficulty, prevLang);
                 return Ok(result);
             }
             catch (Exception ex)
